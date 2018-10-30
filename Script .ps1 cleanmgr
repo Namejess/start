@@ -1,0 +1,53 @@
+echo Nettoyage disque
+
+###########################################################################
+echo Suppression corbeille
+
+remove-item -Path 'C:\$RECYCLE.BIN\*' -force  -Recurse
+
+###########################################################################
+
+#On stop les navigateurs
+stop-Process -Name chrome -ErrorAction SilentlyContinue
+Stop-Process -Name iexplore -ErrorAction SilentlyContinue
+Stop-Process -Name Firefox -ErrorAction SilentlyContinue
+
+Start-Sleep -Seconds 10
+
+###########################################################################
+#Clef de registre, preference de cleanmgr
+
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Downloaded Program Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Internet Cache Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Memory Dump Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Offline Pages Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Previous Installations" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Recycle Bin" /v "StateFlags0002" /t REG_DWORD /d 0 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\ServicePack Cleanup" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Setup Log Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error memory dump files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error minidump files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Setup Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Sync Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Update Cleanup" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Upgrade Discarded Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting Archive Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting Queue Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting System Archive Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting System Queue Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows ESD installation files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0002" /t REG_DWORD /d 2 /f
+
+
+###########################################################################
+
+#Nettoyage de Disque
+
+cleanmgr.exe /sagerun:2  /d c
+    
+
+Echo Fin du nettoyage
+
+Exit
